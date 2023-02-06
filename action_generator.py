@@ -13,10 +13,10 @@ colors = [
     "purple"
 ]
 actions = [
-    ["enabled", "color_enable.isEnabled()"],
-    ["min_", "color_min.input_.text()"],
-    ["max_", "color_max.input_.text()"],
-    ["steps", "color_steps.input_.text()"]   
+    ["enabled", "is_checked()"],
+    ["min_", "min_value()"],
+    ["max_", "max_value()"],
+    ["steps", "steps_value()"]   
 ]
 
 output = ''
@@ -33,8 +33,8 @@ for area in areas:
             output += f'''  
     def __{area}_{color}_{action_label}_action(self)-> None:
         self.data.{area}.{color}.{data_action} = self.widget.{area}.{color}.{widget_action}
-        return
-            '''
+        return\n'''
+        
             
 with open('output.txt', 'w') as file_:
     file_.write(output)

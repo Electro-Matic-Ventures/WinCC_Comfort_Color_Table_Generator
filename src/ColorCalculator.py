@@ -17,6 +17,7 @@ class ColorCalculator:
         _color.red *= self.__calculate_intensity(step)
         _color.green *= self.__calculate_intensity(step)
         _color.blue *= self.__calculate_intensity(step)
+        _color.name += f'_{step}'
         return _color
 
     def __color_deep_copy(self, color: Color)-> Color:
