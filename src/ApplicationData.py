@@ -23,6 +23,3 @@ class ApplicationData:
         self.__dict__[key] = value
         return
     
-    
-t = ApplicationData()
-stop_here = True

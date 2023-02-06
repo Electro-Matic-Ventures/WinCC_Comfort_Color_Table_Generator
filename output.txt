@@ -1,0 +1,113 @@
+
+    def __connect_background_white_actions(self)-> None:
+        self.widget.background.white.color_enable.stateChanged.connect(self.__background_white_enabled_action)
+        self.widget.background.white.color_min.input_.textChanged.connect(self.__background_white_min_action)
+        self.widget.background.white.color_max.input_.textChanged.connect(self.__background_white_max_action)
+        self.widget.background.white.color_steps.input_.textChanged.connect(self.__background_white_steps_action)
+        return
+        
+    def __connect_background_black_actions(self)-> None:
+        self.widget.background.black.color_enable.stateChanged.connect(self.__background_black_enabled_action)
+        self.widget.background.black.color_min.input_.textChanged.connect(self.__background_black_min_action)
+        self.widget.background.black.color_max.input_.textChanged.connect(self.__background_black_max_action)
+        self.widget.background.black.color_steps.input_.textChanged.connect(self.__background_black_steps_action)
+        return
+        
+    def __connect_background_red_actions(self)-> None:
+        self.widget.background.red.color_enable.stateChanged.connect(self.__background_red_enabled_action)
+        self.widget.background.red.color_min.input_.textChanged.connect(self.__background_red_min_action)
+        self.widget.background.red.color_max.input_.textChanged.connect(self.__background_red_max_action)
+        self.widget.background.red.color_steps.input_.textChanged.connect(self.__background_red_steps_action)
+        return
+        
+    def __connect_background_yellow_actions(self)-> None:
+        self.widget.background.yellow.color_enable.stateChanged.connect(self.__background_yellow_enabled_action)
+        self.widget.background.yellow.color_min.input_.textChanged.connect(self.__background_yellow_min_action)
+        self.widget.background.yellow.color_max.input_.textChanged.connect(self.__background_yellow_max_action)
+        self.widget.background.yellow.color_steps.input_.textChanged.connect(self.__background_yellow_steps_action)
+        return
+        
+    def __connect_background_green_actions(self)-> None:
+        self.widget.background.green.color_enable.stateChanged.connect(self.__background_green_enabled_action)
+        self.widget.background.green.color_min.input_.textChanged.connect(self.__background_green_min_action)
+        self.widget.background.green.color_max.input_.textChanged.connect(self.__background_green_max_action)
+        self.widget.background.green.color_steps.input_.textChanged.connect(self.__background_green_steps_action)
+        return
+        
+    def __connect_background_teal_actions(self)-> None:
+        self.widget.background.teal.color_enable.stateChanged.connect(self.__background_teal_enabled_action)
+        self.widget.background.teal.color_min.input_.textChanged.connect(self.__background_teal_min_action)
+        self.widget.background.teal.color_max.input_.textChanged.connect(self.__background_teal_max_action)
+        self.widget.background.teal.color_steps.input_.textChanged.connect(self.__background_teal_steps_action)
+        return
+        
+    def __connect_background_blue_actions(self)-> None:
+        self.widget.background.blue.color_enable.stateChanged.connect(self.__background_blue_enabled_action)
+        self.widget.background.blue.color_min.input_.textChanged.connect(self.__background_blue_min_action)
+        self.widget.background.blue.color_max.input_.textChanged.connect(self.__background_blue_max_action)
+        self.widget.background.blue.color_steps.input_.textChanged.connect(self.__background_blue_steps_action)
+        return
+        
+    def __connect_background_purple_actions(self)-> None:
+        self.widget.background.purple.color_enable.stateChanged.connect(self.__background_purple_enabled_action)
+        self.widget.background.purple.color_min.input_.textChanged.connect(self.__background_purple_min_action)
+        self.widget.background.purple.color_max.input_.textChanged.connect(self.__background_purple_max_action)
+        self.widget.background.purple.color_steps.input_.textChanged.connect(self.__background_purple_steps_action)
+        return
+        
+    def __connect_foreground_white_actions(self)-> None:
+        self.widget.foreground.white.color_enable.stateChanged.connect(self.__foreground_white_enabled_action)
+        self.widget.foreground.white.color_min.input_.textChanged.connect(self.__foreground_white_min_action)
+        self.widget.foreground.white.color_max.input_.textChanged.connect(self.__foreground_white_max_action)
+        self.widget.foreground.white.color_steps.input_.textChanged.connect(self.__foreground_white_steps_action)
+        return
+        
+    def __connect_foreground_black_actions(self)-> None:
+        self.widget.foreground.black.color_enable.stateChanged.connect(self.__foreground_black_enabled_action)
+        self.widget.foreground.black.color_min.input_.textChanged.connect(self.__foreground_black_min_action)
+        self.widget.foreground.black.color_max.input_.textChanged.connect(self.__foreground_black_max_action)
+        self.widget.foreground.black.color_steps.input_.textChanged.connect(self.__foreground_black_steps_action)
+        return
+        
+    def __connect_foreground_red_actions(self)-> None:
+        self.widget.foreground.red.color_enable.stateChanged.connect(self.__foreground_red_enabled_action)
+        self.widget.foreground.red.color_min.input_.textChanged.connect(self.__foreground_red_min_action)
+        self.widget.foreground.red.color_max.input_.textChanged.connect(self.__foreground_red_max_action)
+        self.widget.foreground.red.color_steps.input_.textChanged.connect(self.__foreground_red_steps_action)
+        return
+        
+    def __connect_foreground_yellow_actions(self)-> None:
+        self.widget.foreground.yellow.color_enable.stateChanged.connect(self.__foreground_yellow_enabled_action)
+        self.widget.foreground.yellow.color_min.input_.textChanged.connect(self.__foreground_yellow_min_action)
+        self.widget.foreground.yellow.color_max.input_.textChanged.connect(self.__foreground_yellow_max_action)
+        self.widget.foreground.yellow.color_steps.input_.textChanged.connect(self.__foreground_yellow_steps_action)
+        return
+        
+    def __connect_foreground_green_actions(self)-> None:
+        self.widget.foreground.green.color_enable.stateChanged.connect(self.__foreground_green_enabled_action)
+        self.widget.foreground.green.color_min.input_.textChanged.connect(self.__foreground_green_min_action)
+        self.widget.foreground.green.color_max.input_.textChanged.connect(self.__foreground_green_max_action)
+        self.widget.foreground.green.color_steps.input_.textChanged.connect(self.__foreground_green_steps_action)
+        return
+        
+    def __connect_foreground_teal_actions(self)-> None:
+        self.widget.foreground.teal.color_enable.stateChanged.connect(self.__foreground_teal_enabled_action)
+        self.widget.foreground.teal.color_min.input_.textChanged.connect(self.__foreground_teal_min_action)
+        self.widget.foreground.teal.color_max.input_.textChanged.connect(self.__foreground_teal_max_action)
+        self.widget.foreground.teal.color_steps.input_.textChanged.connect(self.__foreground_teal_steps_action)
+        return
+        
+    def __connect_foreground_blue_actions(self)-> None:
+        self.widget.foreground.blue.color_enable.stateChanged.connect(self.__foreground_blue_enabled_action)
+        self.widget.foreground.blue.color_min.input_.textChanged.connect(self.__foreground_blue_min_action)
+        self.widget.foreground.blue.color_max.input_.textChanged.connect(self.__foreground_blue_max_action)
+        self.widget.foreground.blue.color_steps.input_.textChanged.connect(self.__foreground_blue_steps_action)
+        return
+        
+    def __connect_foreground_purple_actions(self)-> None:
+        self.widget.foreground.purple.color_enable.stateChanged.connect(self.__foreground_purple_enabled_action)
+        self.widget.foreground.purple.color_min.input_.textChanged.connect(self.__foreground_purple_min_action)
+        self.widget.foreground.purple.color_max.input_.textChanged.connect(self.__foreground_purple_max_action)
+        self.widget.foreground.purple.color_steps.input_.textChanged.connect(self.__foreground_purple_steps_action)
+        return
+        
