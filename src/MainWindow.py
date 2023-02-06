@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QIcon
-from AreaPanel import AreaPanel
+from CentralWidget import CentralWidget
 
 class MainWindow(QMainWindow):
     
@@ -8,8 +8,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("WinCC Comofort Color Table Generator")
         self.setWindowIcon(QIcon('icon.png'))
-        w = AreaPanel("Background")
-        self.setContentsMargins(20,20,20,20)
+        w = CentralWidget()
+        self.setContentsMargins(10,10,10,10)
         x = '''
             MainWindow {
                 background-color: #222831;
@@ -17,4 +17,5 @@ class MainWindow(QMainWindow):
         '''
         self.setStyleSheet(x)
         self.setCentralWidget(w)
+        return
         

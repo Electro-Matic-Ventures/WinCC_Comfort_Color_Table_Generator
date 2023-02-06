@@ -45,9 +45,8 @@ class AreaPanel(QGroupBox):
         return
     
     def __set_appearance(self)-> None:
-        self.__layout.setContentsMargins(15, 20, 15, 15)
-        self.__layout.setSpacing(0)
-        self.setFixedSize(284, 800)
+        self.__layout.setContentsMargins(10, 15, 10, 10)
+        self.setFixedSize(275, 750)
         self.setStyleSheet(self.__generate_style_sheet())
         return
     
