@@ -1,7 +1,8 @@
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
 from CentralWidget import CentralWidget
 from ApplicationData import ApplicationData
+from Generate import Generate
 
 class MainWindow(QMainWindow):
     
@@ -173,9 +174,11 @@ class MainWindow(QMainWindow):
         return
     
     def __connect_output_path_actions(self)-> None:
+        self.widget.output_path.browse.clicked.connect(self.__browse_button_action)
         return 
     
     def __connect_generate_button_actions(self)-> None:
+        self.widget.generate_button.clicked.connect(self.__generate_button_action)
         return
     
     def __background_white_enabled_action(self)-> None:
@@ -432,4 +435,17 @@ class MainWindow(QMainWindow):
               
     def __foreground_purple_steps_action(self)-> None:
         self.data.foreground.purple.steps = self.widget.foreground.purple.color_steps.input_.text()
-        return   
+        return  
+    
+    def __browse_button_action(self)-> None:
+        caption = 'Select Output Path...'
+        path = QFileDialog.getExistingDirectory(
+            parent = self, 
+            caption = caption
+        )
+        self.data.path.path = path
+        self.widget.output_path.input_.setText(path)
+        
+    def __generate_button_action(self)-> None:
+        generator = Generate(self.data)
+        return

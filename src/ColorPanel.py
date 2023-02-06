@@ -55,15 +55,3 @@ class ColorPanel(QGroupBox):
                 bottom: 15px;
             }
         '''
-        
-    def get_enabled_state(self)-> bool:
-        return self.color_enable.isChecked()
-    
-    def get_min_value(self)-> int:
-        return self.color_min.input_.text()
-    
-    def get_max_value(self)-> int:
-        return self.color_max.input_.text()
-    
-    def get_steps_value(self)-> int:
-        return self.color_steps.input_.text()
