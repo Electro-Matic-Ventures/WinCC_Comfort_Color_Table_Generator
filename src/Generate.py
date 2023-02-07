@@ -51,9 +51,13 @@ class Generate:
         bg_calculator = ColorCalculator(bg.max_, bg.min_, bg.steps)
         fg_calculator = ColorCalculator(fg.max_, fg.min_, fg.steps)
         for bg_i in range(bg.steps):
+            if bg_name == "black" and bg_i >= 1:
+                continue
             for fg_i in range(fg.steps):
-                bg_color = bg_calculator.calculate(self.__color_str_to_obj(bg_name), bg_i)
-                fg_color = fg_calculator.calculate(self.__color_str_to_obj(fg_name), fg_i)
+                if fg_name == "black" and fg_i >= 1:
+                    continue
+                bg_color = bg_calculator.calculate(self.__color_str_to_obj(bg_name), bg_i + 1)
+                fg_color = fg_calculator.calculate(self.__color_str_to_obj(fg_name), fg_i + 1)
                 self.color_table += color_writer.write(
                     self.row_number, 
                     bg_color, 
