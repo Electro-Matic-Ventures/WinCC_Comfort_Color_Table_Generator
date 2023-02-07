@@ -3,6 +3,8 @@ from PyQt6.QtGui import QIcon
 from CentralWidget import CentralWidget
 from ApplicationData import ApplicationData
 from Generate import Generate
+from Writer import Writer
+
 
 class MainWindow(QMainWindow):
     
@@ -385,6 +387,10 @@ class MainWindow(QMainWindow):
     def __generate_button_action(self)-> None:
         generator = Generate()
         generator.generate(self.data)
+        writer = Writer()
+        path = self.widget.output_path.input_.text()
+        writer.save_color_table(path, generator.color_table)
+        writer.save_constants_table(path, generator.constants_table)
         return
     
     def __background_white_enabled_action(self)-> None:
