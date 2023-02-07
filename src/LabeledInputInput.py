@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QLineEdit
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QRegularExpression
+from PyQt6.QtGui import QRegularExpressionValidator
 from PasteToMenu import PasteToMenu
 
 
@@ -11,6 +12,7 @@ class LabeledInputInput(QLineEdit):
         super().__init__()
         self.context_menu = PasteToMenu()
         self.__set_appearance()
+        self.__set_validator()
         return
     
     def contextMenuEvent(self, event):
@@ -33,3 +35,10 @@ class LabeledInputInput(QLineEdit):
                 font-weight: bold;
             }
         ''' 
+    
+    def __set_validator(self)-> None:
+        pattern = '[0-9]+'
+        regex = QRegularExpression(pattern)
+        validator = QRegularExpressionValidator(regex)
+        self.setValidator(validator)
+        return
