@@ -11,4 +11,4 @@ class Writer:
     def save_constants_table(self, path:str, constants_table:str)-> None:
         with open(f'{path}/constants_table.csv', "w") as file_:
             file_.write(constants_table)
-        return
+        returng
