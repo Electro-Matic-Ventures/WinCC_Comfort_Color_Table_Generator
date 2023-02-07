@@ -15,10 +15,10 @@ class Generate:
     visited: list  
     
     def __init__(self):
-        row_number = 0
-        color_table = ''
-        constants_table = ''
-        visited = []
+        self.row_number = 0
+        self.color_table = ''
+        self.constants_table = ''
+        self.visited = []
         return  
         
     def generate(self, data:ApplicationData)-> None:
@@ -33,6 +33,8 @@ class Generate:
             for fg_name in data.foreground.__dict__:
                 fg_data = data.foreground.__dict__[fg_name]
                 if not fg_data.enabled:
+                    continue
+                if bg_name == fg_name:
                     continue                 
                 if not self.__in_visited(bg_name, fg_name):
                     self.__write_rows_to_tables(bg_data, bg_name, fg_data, fg_name, True)
@@ -52,7 +54,7 @@ class Generate:
             for fg_i in range(fg.steps):
                 bg_color = bg_calculator.calculate(self.__color_str_to_obj(bg_name), bg_i)
                 fg_color = fg_calculator.calculate(self.__color_str_to_obj(fg_name), fg_i)
-                self.color_table += writer.write(
+                self.color_table += color_writer.write(
                     self.row_number, 
                     bg_color, 
                     fg_color, 
@@ -74,7 +76,7 @@ class Generate:
         self.visited.append(flags[1])
         return
     
-    def __create_visited_flags(self, bg:str, fg:str)-> tuple[str]:
+    def __create_visited_flags(self, bg:str, fg:str)-> tuple:
         return f'{bg}{fg}', f'{fg}{bg}'
     
     def __color_str_to_obj(self, color_name:str)-> Color:

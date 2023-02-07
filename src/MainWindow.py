@@ -3,6 +3,8 @@ from PyQt6.QtGui import QIcon
 from CentralWidget import CentralWidget
 from ApplicationData import ApplicationData
 from Generate import Generate
+from Writer import Writer
+
 
 class MainWindow(QMainWindow):
     
@@ -50,62 +52,6 @@ class MainWindow(QMainWindow):
         self.__connect_background_purple_actions()
         return
     
-    def __connect_background_white_actions(self)-> None:
-        self.widget.background.white.color_enable.stateChanged.connect(self.__background_white_enabled_action)
-        self.widget.background.white.color_min.input_.textChanged.connect(self.__background_white_min_action)
-        self.widget.background.white.color_max.input_.textChanged.connect(self.__background_white_max_action)
-        self.widget.background.white.color_steps.input_.textChanged.connect(self.__background_white_steps_action)
-        return
-        
-    def __connect_background_black_actions(self)-> None:
-        self.widget.background.black.color_enable.stateChanged.connect(self.__background_black_enabled_action)
-        self.widget.background.black.color_min.input_.textChanged.connect(self.__background_black_min_action)
-        self.widget.background.black.color_max.input_.textChanged.connect(self.__background_black_max_action)
-        self.widget.background.black.color_steps.input_.textChanged.connect(self.__background_black_steps_action)
-        return
-        
-    def __connect_background_red_actions(self)-> None:
-        self.widget.background.red.color_enable.stateChanged.connect(self.__background_red_enabled_action)
-        self.widget.background.red.color_min.input_.textChanged.connect(self.__background_red_min_action)
-        self.widget.background.red.color_max.input_.textChanged.connect(self.__background_red_max_action)
-        self.widget.background.red.color_steps.input_.textChanged.connect(self.__background_red_steps_action)
-        return
-        
-    def __connect_background_yellow_actions(self)-> None:
-        self.widget.background.yellow.color_enable.stateChanged.connect(self.__background_yellow_enabled_action)
-        self.widget.background.yellow.color_min.input_.textChanged.connect(self.__background_yellow_min_action)
-        self.widget.background.yellow.color_max.input_.textChanged.connect(self.__background_yellow_max_action)
-        self.widget.background.yellow.color_steps.input_.textChanged.connect(self.__background_yellow_steps_action)
-        return
-        
-    def __connect_background_green_actions(self)-> None:
-        self.widget.background.green.color_enable.stateChanged.connect(self.__background_green_enabled_action)
-        self.widget.background.green.color_min.input_.textChanged.connect(self.__background_green_min_action)
-        self.widget.background.green.color_max.input_.textChanged.connect(self.__background_green_max_action)
-        self.widget.background.green.color_steps.input_.textChanged.connect(self.__background_green_steps_action)
-        return
-        
-    def __connect_background_teal_actions(self)-> None:
-        self.widget.background.teal.color_enable.stateChanged.connect(self.__background_teal_enabled_action)
-        self.widget.background.teal.color_min.input_.textChanged.connect(self.__background_teal_min_action)
-        self.widget.background.teal.color_max.input_.textChanged.connect(self.__background_teal_max_action)
-        self.widget.background.teal.color_steps.input_.textChanged.connect(self.__background_teal_steps_action)
-        return
-        
-    def __connect_background_blue_actions(self)-> None:
-        self.widget.background.blue.color_enable.stateChanged.connect(self.__background_blue_enabled_action)
-        self.widget.background.blue.color_min.input_.textChanged.connect(self.__background_blue_min_action)
-        self.widget.background.blue.color_max.input_.textChanged.connect(self.__background_blue_max_action)
-        self.widget.background.blue.color_steps.input_.textChanged.connect(self.__background_blue_steps_action)
-        return
-        
-    def __connect_background_purple_actions(self)-> None:
-        self.widget.background.purple.color_enable.stateChanged.connect(self.__background_purple_enabled_action)
-        self.widget.background.purple.color_min.input_.textChanged.connect(self.__background_purple_min_action)
-        self.widget.background.purple.color_max.input_.textChanged.connect(self.__background_purple_max_action)
-        self.widget.background.purple.color_steps.input_.textChanged.connect(self.__background_purple_steps_action)
-        return
-    
     def __connect_foreground_actions(self) -> None:        
         self.__connect_foreground_white_actions()
         self.__connect_foreground_black_actions()
@@ -117,60 +63,334 @@ class MainWindow(QMainWindow):
         self.__connect_foreground_purple_actions()
         return
     
+    def __connect_output_path_actions(self)-> None:
+        self.widget.output_path.browse.clicked.connect(self.__browse_button_action)
+        return 
+    
+    def __connect_generate_button_actions(self)-> None:
+        self.widget.generate_button.clicked.connect(self.__generate_button_action)
+        return    
+    
+    def __connect_background_white_actions(self)-> None:
+        # ENABLE
+        self.widget.background.white.color_enable.stateChanged.connect(self.__background_white_enabled_action)
+        self.widget.background.white.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_enable_to_all)
+        self.widget.background.white.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_enable_to_area)
+        # MIN
+        self.widget.background.white.color_min.input_.textChanged.connect(self.__background_white_min_action)
+        self.widget.background.white.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_min_to_all)
+        self.widget.background.white.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_min_to_area)
+        # MAX
+        self.widget.background.white.color_max.input_.textChanged.connect(self.__background_white_max_action)
+        self.widget.background.white.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_max_to_all)
+        self.widget.background.white.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_max_to_area)
+        # STEPS
+        self.widget.background.white.color_steps.input_.textChanged.connect(self.__background_white_steps_action)
+        self.widget.background.white.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_steps_to_all)
+        self.widget.background.white.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_steps_to_area)
+        return
+    
+    def __connect_background_black_actions(self)-> None:
+        # ENABLE
+        self.widget.background.black.color_enable.stateChanged.connect(self.__background_black_enabled_action)
+        self.widget.background.black.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_black_enable_to_all)
+        self.widget.background.black.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_black_enable_to_area)
+        # MIN
+        self.widget.background.black.color_min.input_.textChanged.connect(self.__background_black_min_action)
+        self.widget.background.black.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_black_min_to_all)
+        self.widget.background.black.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_black_min_to_area)
+        # MAX
+        self.widget.background.black.color_max.input_.textChanged.connect(self.__background_black_max_action)
+        self.widget.background.black.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_black_max_to_all)
+        self.widget.background.black.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_black_max_to_area)
+        # STEPS
+        self.widget.background.black.color_steps.input_.textChanged.connect(self.__background_black_steps_action)
+        self.widget.background.black.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_black_steps_to_all)
+        self.widget.background.black.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_black_steps_to_area)
+        return
+    
+    def __connect_background_red_actions(self)-> None:
+        # ENABLE
+        self.widget.background.red.color_enable.stateChanged.connect(self.__background_red_enabled_action)
+        self.widget.background.red.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_red_enable_to_all)
+        self.widget.background.red.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_red_enable_to_area)
+        # MIN
+        self.widget.background.red.color_min.input_.textChanged.connect(self.__background_red_min_action)
+        self.widget.background.red.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_red_min_to_all)
+        self.widget.background.red.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_red_min_to_area)
+        # MAX
+        self.widget.background.red.color_max.input_.textChanged.connect(self.__background_red_max_action)
+        self.widget.background.red.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_red_max_to_all)
+        self.widget.background.red.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_red_max_to_area)
+        # STEPS
+        self.widget.background.red.color_steps.input_.textChanged.connect(self.__background_red_steps_action)
+        self.widget.background.red.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_red_steps_to_all)
+        self.widget.background.red.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_red_steps_to_area)
+        return
+    
+    def __connect_background_yellow_actions(self)-> None:
+        # ENABLE
+        self.widget.background.yellow.color_enable.stateChanged.connect(self.__background_yellow_enabled_action)
+        self.widget.background.yellow.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_yellow_enable_to_all)
+        self.widget.background.yellow.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_yellow_enable_to_area)
+        # MIN
+        self.widget.background.yellow.color_min.input_.textChanged.connect(self.__background_yellow_min_action)
+        self.widget.background.yellow.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_yellow_min_to_all)
+        self.widget.background.yellow.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_yellow_min_to_area)
+        # MAX
+        self.widget.background.yellow.color_max.input_.textChanged.connect(self.__background_yellow_max_action)
+        self.widget.background.yellow.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_yellow_max_to_all)
+        self.widget.background.yellow.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_yellow_max_to_area)
+        # STEPS
+        self.widget.background.yellow.color_steps.input_.textChanged.connect(self.__background_yellow_steps_action)
+        self.widget.background.yellow.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_yellow_steps_to_all)
+        self.widget.background.yellow.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_yellow_steps_to_area)
+        return
+    
+    def __connect_background_green_actions(self)-> None:
+        # ENABLE
+        self.widget.background.green.color_enable.stateChanged.connect(self.__background_green_enabled_action)
+        self.widget.background.green.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_green_enable_to_all)
+        self.widget.background.green.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_green_enable_to_area)
+        # MIN
+        self.widget.background.green.color_min.input_.textChanged.connect(self.__background_green_min_action)
+        self.widget.background.green.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_green_min_to_all)
+        self.widget.background.green.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_green_min_to_area)
+        # MAX
+        self.widget.background.green.color_max.input_.textChanged.connect(self.__background_green_max_action)
+        self.widget.background.green.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_green_max_to_all)
+        self.widget.background.green.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_green_max_to_area)
+        # STEPS
+        self.widget.background.green.color_steps.input_.textChanged.connect(self.__background_green_steps_action)
+        self.widget.background.green.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_green_steps_to_all)
+        self.widget.background.green.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_green_steps_to_area)
+        return
+    
+    def __connect_background_teal_actions(self)-> None:
+        # ENABLE
+        self.widget.background.teal.color_enable.stateChanged.connect(self.__background_teal_enabled_action)
+        self.widget.background.teal.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_teal_enable_to_all)
+        self.widget.background.teal.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_teal_enable_to_area)
+        # MIN
+        self.widget.background.teal.color_min.input_.textChanged.connect(self.__background_teal_min_action)
+        self.widget.background.teal.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_teal_min_to_all)
+        self.widget.background.teal.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_teal_min_to_area)
+        # MAX
+        self.widget.background.teal.color_max.input_.textChanged.connect(self.__background_teal_max_action)
+        self.widget.background.teal.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_teal_max_to_all)
+        self.widget.background.teal.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_teal_max_to_area)
+        # STEPS
+        self.widget.background.teal.color_steps.input_.textChanged.connect(self.__background_teal_steps_action)
+        self.widget.background.teal.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_teal_steps_to_all)
+        self.widget.background.teal.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_teal_steps_to_area)
+        return
+    
+    def __connect_background_blue_actions(self)-> None:
+        # ENABLE
+        self.widget.background.blue.color_enable.stateChanged.connect(self.__background_blue_enabled_action)
+        self.widget.background.blue.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_blue_enable_to_all)
+        self.widget.background.blue.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_blue_enable_to_area)
+        # MIN
+        self.widget.background.blue.color_min.input_.textChanged.connect(self.__background_blue_min_action)
+        self.widget.background.blue.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_blue_min_to_all)
+        self.widget.background.blue.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_blue_min_to_area)
+        # MAX
+        self.widget.background.blue.color_max.input_.textChanged.connect(self.__background_blue_max_action)
+        self.widget.background.blue.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_blue_max_to_all)
+        self.widget.background.blue.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_blue_max_to_area)
+        # STEPS
+        self.widget.background.blue.color_steps.input_.textChanged.connect(self.__background_blue_steps_action)
+        self.widget.background.blue.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_blue_steps_to_all)
+        self.widget.background.blue.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_blue_steps_to_area)
+        return
+    
+    def __connect_background_purple_actions(self)-> None:
+        # ENABLE
+        self.widget.background.purple.color_enable.stateChanged.connect(self.__background_purple_enabled_action)
+        self.widget.background.purple.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_purple_enable_to_all)
+        self.widget.background.purple.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_purple_enable_to_area)
+        # MIN
+        self.widget.background.purple.color_min.input_.textChanged.connect(self.__background_purple_min_action)
+        self.widget.background.purple.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_purple_min_to_all)
+        self.widget.background.purple.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_purple_min_to_area)
+        # MAX
+        self.widget.background.purple.color_max.input_.textChanged.connect(self.__background_purple_max_action)
+        self.widget.background.purple.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_purple_max_to_all)
+        self.widget.background.purple.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_purple_max_to_area)
+        # STEPS
+        self.widget.background.purple.color_steps.input_.textChanged.connect(self.__background_purple_steps_action)
+        self.widget.background.purple.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_purple_steps_to_all)
+        self.widget.background.purple.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_purple_steps_to_area)
+        return
+    
     def __connect_foreground_white_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.white.color_enable.stateChanged.connect(self.__foreground_white_enabled_action)
+        self.widget.foreground.white.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_white_enable_to_all)
+        self.widget.foreground.white.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_white_enable_to_area)
+        # MIN
         self.widget.foreground.white.color_min.input_.textChanged.connect(self.__foreground_white_min_action)
+        self.widget.foreground.white.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_white_min_to_all)
+        self.widget.foreground.white.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_white_min_to_area)
+        # MAX
         self.widget.foreground.white.color_max.input_.textChanged.connect(self.__foreground_white_max_action)
+        self.widget.foreground.white.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_white_max_to_all)
+        self.widget.foreground.white.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_white_max_to_area)
+        # STEPS
         self.widget.foreground.white.color_steps.input_.textChanged.connect(self.__foreground_white_steps_action)
+        self.widget.foreground.white.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_white_steps_to_all)
+        self.widget.foreground.white.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_white_steps_to_area)
         return
-        
+    
     def __connect_foreground_black_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.black.color_enable.stateChanged.connect(self.__foreground_black_enabled_action)
+        self.widget.foreground.black.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_black_enable_to_all)
+        self.widget.foreground.black.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_black_enable_to_area)
+        # MIN
         self.widget.foreground.black.color_min.input_.textChanged.connect(self.__foreground_black_min_action)
+        self.widget.foreground.black.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_black_min_to_all)
+        self.widget.foreground.black.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_black_min_to_area)
+        # MAX
         self.widget.foreground.black.color_max.input_.textChanged.connect(self.__foreground_black_max_action)
+        self.widget.foreground.black.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_black_max_to_all)
+        self.widget.foreground.black.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_black_max_to_area)
+        # STEPS
         self.widget.foreground.black.color_steps.input_.textChanged.connect(self.__foreground_black_steps_action)
+        self.widget.foreground.black.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_black_steps_to_all)
+        self.widget.foreground.black.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_black_steps_to_area)
         return
-        
+    
     def __connect_foreground_red_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.red.color_enable.stateChanged.connect(self.__foreground_red_enabled_action)
+        self.widget.foreground.red.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_red_enable_to_all)
+        self.widget.foreground.red.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_red_enable_to_area)
+        # MIN
         self.widget.foreground.red.color_min.input_.textChanged.connect(self.__foreground_red_min_action)
+        self.widget.foreground.red.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_red_min_to_all)
+        self.widget.foreground.red.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_red_min_to_area)
+        # MAX
         self.widget.foreground.red.color_max.input_.textChanged.connect(self.__foreground_red_max_action)
+        self.widget.foreground.red.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_red_max_to_all)
+        self.widget.foreground.red.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_red_max_to_area)
+        # STEPS
         self.widget.foreground.red.color_steps.input_.textChanged.connect(self.__foreground_red_steps_action)
+        self.widget.foreground.red.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_red_steps_to_all)
+        self.widget.foreground.red.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_red_steps_to_area)
         return
-        
+    
     def __connect_foreground_yellow_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.yellow.color_enable.stateChanged.connect(self.__foreground_yellow_enabled_action)
+        self.widget.foreground.yellow.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_yellow_enable_to_all)
+        self.widget.foreground.yellow.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_yellow_enable_to_area)
+        # MIN
         self.widget.foreground.yellow.color_min.input_.textChanged.connect(self.__foreground_yellow_min_action)
+        self.widget.foreground.yellow.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_yellow_min_to_all)
+        self.widget.foreground.yellow.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_yellow_min_to_area)
+        # MAX
         self.widget.foreground.yellow.color_max.input_.textChanged.connect(self.__foreground_yellow_max_action)
+        self.widget.foreground.yellow.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_yellow_max_to_all)
+        self.widget.foreground.yellow.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_yellow_max_to_area)
+        # STEPS
         self.widget.foreground.yellow.color_steps.input_.textChanged.connect(self.__foreground_yellow_steps_action)
+        self.widget.foreground.yellow.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_yellow_steps_to_all)
+        self.widget.foreground.yellow.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_yellow_steps_to_area)
         return
-        
+    
     def __connect_foreground_green_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.green.color_enable.stateChanged.connect(self.__foreground_green_enabled_action)
+        self.widget.foreground.green.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_green_enable_to_all)
+        self.widget.foreground.green.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_green_enable_to_area)
+        # MIN
         self.widget.foreground.green.color_min.input_.textChanged.connect(self.__foreground_green_min_action)
+        self.widget.foreground.green.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_green_min_to_all)
+        self.widget.foreground.green.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_green_min_to_area)
+        # MAX
         self.widget.foreground.green.color_max.input_.textChanged.connect(self.__foreground_green_max_action)
+        self.widget.foreground.green.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_green_max_to_all)
+        self.widget.foreground.green.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_green_max_to_area)
+        # STEPS
         self.widget.foreground.green.color_steps.input_.textChanged.connect(self.__foreground_green_steps_action)
+        self.widget.foreground.green.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_green_steps_to_all)
+        self.widget.foreground.green.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_green_steps_to_area)
         return
-        
+    
     def __connect_foreground_teal_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.teal.color_enable.stateChanged.connect(self.__foreground_teal_enabled_action)
+        self.widget.foreground.teal.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_teal_enable_to_all)
+        self.widget.foreground.teal.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_teal_enable_to_area)
+        # MIN
         self.widget.foreground.teal.color_min.input_.textChanged.connect(self.__foreground_teal_min_action)
+        self.widget.foreground.teal.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_teal_min_to_all)
+        self.widget.foreground.teal.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_teal_min_to_area)
+        # MAX
         self.widget.foreground.teal.color_max.input_.textChanged.connect(self.__foreground_teal_max_action)
+        self.widget.foreground.teal.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_teal_max_to_all)
+        self.widget.foreground.teal.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_teal_max_to_area)
+        # STEPS
         self.widget.foreground.teal.color_steps.input_.textChanged.connect(self.__foreground_teal_steps_action)
+        self.widget.foreground.teal.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_teal_steps_to_all)
+        self.widget.foreground.teal.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_teal_steps_to_area)
         return
-        
+    
     def __connect_foreground_blue_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.blue.color_enable.stateChanged.connect(self.__foreground_blue_enabled_action)
+        self.widget.foreground.blue.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_blue_enable_to_all)
+        self.widget.foreground.blue.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_blue_enable_to_area)
+        # MIN
         self.widget.foreground.blue.color_min.input_.textChanged.connect(self.__foreground_blue_min_action)
+        self.widget.foreground.blue.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_blue_min_to_all)
+        self.widget.foreground.blue.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_blue_min_to_area)
+        # MAX
         self.widget.foreground.blue.color_max.input_.textChanged.connect(self.__foreground_blue_max_action)
+        self.widget.foreground.blue.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_blue_max_to_all)
+        self.widget.foreground.blue.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_blue_max_to_area)
+        # STEPS
         self.widget.foreground.blue.color_steps.input_.textChanged.connect(self.__foreground_blue_steps_action)
+        self.widget.foreground.blue.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_blue_steps_to_all)
+        self.widget.foreground.blue.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_blue_steps_to_area)
         return
-        
+    
     def __connect_foreground_purple_actions(self)-> None:
+        # ENABLE
         self.widget.foreground.purple.color_enable.stateChanged.connect(self.__foreground_purple_enabled_action)
+        self.widget.foreground.purple.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_purple_enable_to_all)
+        self.widget.foreground.purple.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_purple_enable_to_area)
+        # MIN
         self.widget.foreground.purple.color_min.input_.textChanged.connect(self.__foreground_purple_min_action)
+        self.widget.foreground.purple.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_purple_min_to_all)
+        self.widget.foreground.purple.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_purple_min_to_area)
+        # MAX
         self.widget.foreground.purple.color_max.input_.textChanged.connect(self.__foreground_purple_max_action)
+        self.widget.foreground.purple.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_purple_max_to_all)
+        self.widget.foreground.purple.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_purple_max_to_area)
+        # STEPS
         self.widget.foreground.purple.color_steps.input_.textChanged.connect(self.__foreground_purple_steps_action)
+        self.widget.foreground.purple.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_foreground_purple_steps_to_all)
+        self.widget.foreground.purple.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_foreground_purple_steps_to_area)
+        return
+    
+    def __browse_button_action(self)-> None:
+        caption = 'Select Output Path...'
+        path = QFileDialog.getExistingDirectory(
+            parent = self, 
+            caption = caption
+        )
+        self.data.path.path = path
+        self.widget.output_path.input_.setText(path)
+        
+    def __generate_button_action(self)-> None:
+        generator = Generate()
+        generator.generate(self.data)
+        writer = Writer()
+        path = self.widget.output_path.input_.text()
+        writer.save_color_table(path, generator.color_table)
+        writer.save_constants_table(path, generator.constants_table)
         return
     
     def __background_white_enabled_action(self)-> None:
@@ -428,25 +648,757 @@ class MainWindow(QMainWindow):
     def __foreground_purple_steps_action(self)-> None:
         self.data.foreground.purple.steps = self.widget.foreground.purple.steps_value()
         return
-    
-    def __connect_output_path_actions(self)-> None:
-        self.widget.output_path.browse.clicked.connect(self.__browse_button_action)
-        return 
-    
-    def __connect_generate_button_actions(self)-> None:
-        self.widget.generate_button.clicked.connect(self.__generate_button_action)
-        return    
 
-    def __browse_button_action(self)-> None:
-        caption = 'Select Output Path...'
-        path = QFileDialog.getExistingDirectory(
-            parent = self, 
-            caption = caption
-        )
-        self.data.path.path = path
-        self.widget.output_path.input_.setText(path)
+    def __paste_background_white_enable_to_all(self)-> None:
+        value = self.widget.background.white.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_white_enable_to_area(self)-> None:
+        value = self.widget.background.white.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_black_enable_to_all(self)-> None:
+        value = self.widget.background.black.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_black_enable_to_area(self)-> None:
+        value = self.widget.background.black.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_red_enable_to_all(self)-> None:
+        value = self.widget.background.red.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_red_enable_to_area(self)-> None:
+        value = self.widget.background.red.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_yellow_enable_to_all(self)-> None:
+        value = self.widget.background.yellow.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_yellow_enable_to_area(self)-> None:
+        value = self.widget.background.yellow.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_green_enable_to_all(self)-> None:
+        value = self.widget.background.green.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_green_enable_to_area(self)-> None:
+        value = self.widget.background.green.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_teal_enable_to_all(self)-> None:
+        value = self.widget.background.teal.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_teal_enable_to_area(self)-> None:
+        value = self.widget.background.teal.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_blue_enable_to_all(self)-> None:
+        value = self.widget.background.blue.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_blue_enable_to_area(self)-> None:
+        value = self.widget.background.blue.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_purple_enable_to_all(self)-> None:
+        value = self.widget.background.purple.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_background_purple_enable_to_area(self)-> None:
+        value = self.widget.background.purple.color_enable.isChecked()
+        self.__paste_to_background_enable(value)
+        return
+    
+    def __paste_background_white_min_to_all(self)-> None:
+        value = int(self.widget.background.white.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_white_min_to_area(self)-> None:
+        value = int(self.widget.background.white.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_black_min_to_all(self)-> None:
+        value = int(self.widget.background.black.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_black_min_to_area(self)-> None:
+        value = int(self.widget.background.black.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_red_min_to_all(self)-> None:
+        value = int(self.widget.background.red.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_red_min_to_area(self)-> None:
+        value = int(self.widget.background.red.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_yellow_min_to_all(self)-> None:
+        value = int(self.widget.background.yellow.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_yellow_min_to_area(self)-> None:
+        value = int(self.widget.background.yellow.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_green_min_to_all(self)-> None:
+        value = int(self.widget.background.green.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_green_min_to_area(self)-> None:
+        value = int(self.widget.background.green.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_teal_min_to_all(self)-> None:
+        value = int(self.widget.background.teal.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_teal_min_to_area(self)-> None:
+        value = int(self.widget.background.teal.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_blue_min_to_all(self)-> None:
+        value = int(self.widget.background.blue.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_blue_min_to_area(self)-> None:
+        value = int(self.widget.background.blue.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_purple_min_to_all(self)-> None:
+        value = int(self.widget.background.purple.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_background_purple_min_to_area(self)-> None:
+        value = int(self.widget.background.purple.color_min.input_.text())
+        self.__paste_to_background_min(value)
+        return
+    
+    def __paste_background_white_max_to_all(self)-> None:
+        value = int(self.widget.background.white.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_white_max_to_area(self)-> None:
+        value = int(self.widget.background.white.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_black_max_to_all(self)-> None:
+        value = int(self.widget.background.black.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_black_max_to_area(self)-> None:
+        value = int(self.widget.background.black.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_red_max_to_all(self)-> None:
+        value = int(self.widget.background.red.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_red_max_to_area(self)-> None:
+        value = int(self.widget.background.red.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_yellow_max_to_all(self)-> None:
+        value = int(self.widget.background.yellow.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_yellow_max_to_area(self)-> None:
+        value = int(self.widget.background.yellow.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_green_max_to_all(self)-> None:
+        value = int(self.widget.background.green.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_green_max_to_area(self)-> None:
+        value = int(self.widget.background.green.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_teal_max_to_all(self)-> None:
+        value = int(self.widget.background.teal.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_teal_max_to_area(self)-> None:
+        value = int(self.widget.background.teal.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_blue_max_to_all(self)-> None:
+        value = int(self.widget.background.blue.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_blue_max_to_area(self)-> None:
+        value = int(self.widget.background.blue.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_purple_max_to_all(self)-> None:
+        value = int(self.widget.background.purple.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_background_purple_max_to_area(self)-> None:
+        value = int(self.widget.background.purple.color_max.input_.text())
+        self.__paste_to_background_max(value)
+        return
+    
+    def __paste_background_white_steps_to_all(self)-> None:
+        value = int(self.widget.background.white.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_white_steps_to_area(self)-> None:
+        value = int(self.widget.background.white.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_black_steps_to_all(self)-> None:
+        value = int(self.widget.background.black.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_black_steps_to_area(self)-> None:
+        value = int(self.widget.background.black.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_red_steps_to_all(self)-> None:
+        value = int(self.widget.background.red.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_red_steps_to_area(self)-> None:
+        value = int(self.widget.background.red.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_yellow_steps_to_all(self)-> None:
+        value = int(self.widget.background.yellow.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_yellow_steps_to_area(self)-> None:
+        value = int(self.widget.background.yellow.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_green_steps_to_all(self)-> None:
+        value = int(self.widget.background.green.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_green_steps_to_area(self)-> None:
+        value = int(self.widget.background.green.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_teal_steps_to_all(self)-> None:
+        value = int(self.widget.background.teal.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_teal_steps_to_area(self)-> None:
+        value = int(self.widget.background.teal.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_blue_steps_to_all(self)-> None:
+        value = int(self.widget.background.blue.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_blue_steps_to_area(self)-> None:
+        value = int(self.widget.background.blue.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_background_purple_steps_to_all(self)-> None:
+        value = int(self.widget.background.purple.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_background_purple_steps_to_area(self)-> None:
+        value = int(self.widget.background.purple.color_steps.input_.text())
+        self.__paste_to_background_steps(value)
+        return
+    
+    def __paste_foreground_white_enable_to_all(self)-> None:
+        value = self.widget.foreground.white.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_white_enable_to_area(self)-> None:
+        value = self.widget.foreground.white.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_black_enable_to_all(self)-> None:
+        value = self.widget.foreground.black.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_black_enable_to_area(self)-> None:
+        value = self.widget.foreground.black.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_red_enable_to_all(self)-> None:
+        value = self.widget.foreground.red.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_red_enable_to_area(self)-> None:
+        value = self.widget.foreground.red.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_yellow_enable_to_all(self)-> None:
+        value = self.widget.foreground.yellow.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_yellow_enable_to_area(self)-> None:
+        value = self.widget.foreground.yellow.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_green_enable_to_all(self)-> None:
+        value = self.widget.foreground.green.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_green_enable_to_area(self)-> None:
+        value = self.widget.foreground.green.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_teal_enable_to_all(self)-> None:
+        value = self.widget.foreground.teal.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_teal_enable_to_area(self)-> None:
+        value = self.widget.foreground.teal.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_blue_enable_to_all(self)-> None:
+        value = self.widget.foreground.blue.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_blue_enable_to_area(self)-> None:
+        value = self.widget.foreground.blue.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_purple_enable_to_all(self)-> None:
+        value = self.widget.foreground.purple.color_enable.isChecked()
+        self.__paste_to_all_enable(value)
+        return
+    
+    def __paste_foreground_purple_enable_to_area(self)-> None:
+        value = self.widget.foreground.purple.color_enable.isChecked()
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_foreground_white_min_to_all(self)-> None:
+        value = int(self.widget.foreground.white.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_white_min_to_area(self)-> None:
+        value = int(self.widget.foreground.white.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_black_min_to_all(self)-> None:
+        value = int(self.widget.foreground.black.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_black_min_to_area(self)-> None:
+        value = int(self.widget.foreground.black.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_red_min_to_all(self)-> None:
+        value = int(self.widget.foreground.red.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_red_min_to_area(self)-> None:
+        value = int(self.widget.foreground.red.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_yellow_min_to_all(self)-> None:
+        value = int(self.widget.foreground.yellow.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_yellow_min_to_area(self)-> None:
+        value = int(self.widget.foreground.yellow.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_green_min_to_all(self)-> None:
+        value = int(self.widget.foreground.green.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_green_min_to_area(self)-> None:
+        value = int(self.widget.foreground.green.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_teal_min_to_all(self)-> None:
+        value = int(self.widget.foreground.teal.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_teal_min_to_area(self)-> None:
+        value = int(self.widget.foreground.teal.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_blue_min_to_all(self)-> None:
+        value = int(self.widget.foreground.blue.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_blue_min_to_area(self)-> None:
+        value = int(self.widget.foreground.blue.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_purple_min_to_all(self)-> None:
+        value = int(self.widget.foreground.purple.color_min.input_.text())
+        self.__paste_to_all_min(value)
+        return
+    
+    def __paste_foreground_purple_min_to_area(self)-> None:
+        value = int(self.widget.foreground.purple.color_min.input_.text())
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_foreground_white_max_to_all(self)-> None:
+        value = int(self.widget.foreground.white.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_white_max_to_area(self)-> None:
+        value = int(self.widget.foreground.white.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_black_max_to_all(self)-> None:
+        value = int(self.widget.foreground.black.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_black_max_to_area(self)-> None:
+        value = int(self.widget.foreground.black.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_red_max_to_all(self)-> None:
+        value = int(self.widget.foreground.red.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_red_max_to_area(self)-> None:
+        value = int(self.widget.foreground.red.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_yellow_max_to_all(self)-> None:
+        value = int(self.widget.foreground.yellow.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_yellow_max_to_area(self)-> None:
+        value = int(self.widget.foreground.yellow.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_green_max_to_all(self)-> None:
+        value = int(self.widget.foreground.green.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_green_max_to_area(self)-> None:
+        value = int(self.widget.foreground.green.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_teal_max_to_all(self)-> None:
+        value = int(self.widget.foreground.teal.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_teal_max_to_area(self)-> None:
+        value = int(self.widget.foreground.teal.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_blue_max_to_all(self)-> None:
+        value = int(self.widget.foreground.blue.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_blue_max_to_area(self)-> None:
+        value = int(self.widget.foreground.blue.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_purple_max_to_all(self)-> None:
+        value = int(self.widget.foreground.purple.color_max.input_.text())
+        self.__paste_to_all_max(value)
+        return
+    
+    def __paste_foreground_purple_max_to_area(self)-> None:
+        value = int(self.widget.foreground.purple.color_max.input_.text())
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_foreground_white_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.white.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_white_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.white.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_black_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.black.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_black_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.black.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_red_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.red.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_red_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.red.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_yellow_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.yellow.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_yellow_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.yellow.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_green_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.green.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_green_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.green.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_teal_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.teal.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_teal_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.teal.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_blue_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.blue.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_blue_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.blue.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_foreground_purple_steps_to_all(self)-> None:
+        value = int(self.widget.foreground.purple.color_steps.input_.text())
+        self.__paste_to_all_steps(value)
+        return
+    
+    def __paste_foreground_purple_steps_to_area(self)-> None:
+        value = int(self.widget.foreground.purple.color_steps.input_.text())
+        self.__paste_to_foreground_steps(value)
+        return
         
-    def __generate_button_action(self)-> None:
-        generator = Generate()
-        generator.generate(self.data)
+    def __paste_to_all_enable(self, value:bool)-> None:
+        self.__paste_to_background_enable(value)
+        self.__paste_to_foreground_enable(value)
+        return
+    
+    def __paste_to_all_min(self, value:int)-> None:
+        self.__paste_to_background_min(value)
+        self.__paste_to_foreground_min(value)
+        return
+    
+    def __paste_to_all_max(self, value:int)-> None:
+        self.__paste_to_background_max(value)
+        self.__paste_to_foreground_max(value)
+        return
+    
+    def __paste_to_all_steps(self, value:int)-> None:
+        self.__paste_to_background_steps(value)
+        self.__paste_to_foreground_steps(value)
+        return
+    
+    def __paste_to_background_enable(self, value:bool)-> None:
+        self.widget.background.white.color_enable.setChecked(value)
+        self.widget.background.black.color_enable.setChecked(value)
+        self.widget.background.red.color_enable.setChecked(value)
+        self.widget.background.yellow.color_enable.setChecked(value)
+        self.widget.background.green.color_enable.setChecked(value)
+        self.widget.background.teal.color_enable.setChecked(value)
+        self.widget.background.blue.color_enable.setChecked(value)
+        self.widget.background.purple.color_enable.setChecked(value)
+        return
+
+    def __paste_to_background_min(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.background.white.color_min.input_.setText(value_)
+        self.widget.background.black.color_min.input_.setText(value_)
+        self.widget.background.red.color_min.input_.setText(value_)
+        self.widget.background.yellow.color_min.input_.setText(value_)
+        self.widget.background.green.color_min.input_.setText(value_)
+        self.widget.background.teal.color_min.input_.setText(value_)
+        self.widget.background.blue.color_min.input_.setText(value_)
+        self.widget.background.purple.color_min.input_.setText(value_)
+        return
+
+    def __paste_to_background_max(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.background.white.color_max.input_.setText(value_)
+        self.widget.background.black.color_max.input_.setText(value_)
+        self.widget.background.red.color_max.input_.setText(value_)
+        self.widget.background.yellow.color_max.input_.setText(value_)
+        self.widget.background.green.color_max.input_.setText(value_)
+        self.widget.background.teal.color_max.input_.setText(value_)
+        self.widget.background.blue.color_max.input_.setText(value_)
+        self.widget.background.purple.color_max.input_.setText(value_)
+        return
+
+    def __paste_to_background_steps(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.background.white.color_steps.input_.setText(value_)
+        self.widget.background.black.color_steps.input_.setText(value_)
+        self.widget.background.red.color_steps.input_.setText(value_)
+        self.widget.background.yellow.color_steps.input_.setText(value_)
+        self.widget.background.green.color_steps.input_.setText(value_)
+        self.widget.background.teal.color_steps.input_.setText(value_)
+        self.widget.background.blue.color_steps.input_.setText(value_)
+        self.widget.background.purple.color_steps.input_.setText(value_)
+        return
+
+    def __paste_to_foreground_enable(self, value:bool)-> None:
+        self.widget.foreground.white.color_enable.setChecked(value)
+        self.widget.foreground.black.color_enable.setChecked(value)
+        self.widget.foreground.red.color_enable.setChecked(value)
+        self.widget.foreground.yellow.color_enable.setChecked(value)
+        self.widget.foreground.green.color_enable.setChecked(value)
+        self.widget.foreground.teal.color_enable.setChecked(value)
+        self.widget.foreground.blue.color_enable.setChecked(value)
+        self.widget.foreground.purple.color_enable.setChecked(value)
+        return
+
+    def __paste_to_foreground_min(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.foreground.white.color_min.input_.setText(value_)
+        self.widget.foreground.black.color_min.input_.setText(value_)
+        self.widget.foreground.red.color_min.input_.setText(value_)
+        self.widget.foreground.yellow.color_min.input_.setText(value_)
+        self.widget.foreground.green.color_min.input_.setText(value_)
+        self.widget.foreground.teal.color_min.input_.setText(value_)
+        self.widget.foreground.blue.color_min.input_.setText(value_)
+        self.widget.foreground.purple.color_min.input_.setText(value_)
+        return
+
+    def __paste_to_foreground_max(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.foreground.white.color_max.input_.setText(value_)
+        self.widget.foreground.black.color_max.input_.setText(value_)
+        self.widget.foreground.red.color_max.input_.setText(value_)
+        self.widget.foreground.yellow.color_max.input_.setText(value_)
+        self.widget.foreground.green.color_max.input_.setText(value_)
+        self.widget.foreground.teal.color_max.input_.setText(value_)
+        self.widget.foreground.blue.color_max.input_.setText(value_)
+        self.widget.foreground.purple.color_max.input_.setText(value_)
+        return
+
+    def __paste_to_foreground_steps(self, value:bool)-> None:
+        value_ = str(value)
+        self.widget.foreground.white.color_steps.input_.setText(value_)
+        self.widget.foreground.black.color_steps.input_.setText(value_)
+        self.widget.foreground.red.color_steps.input_.setText(value_)
+        self.widget.foreground.yellow.color_steps.input_.setText(value_)
+        self.widget.foreground.green.color_steps.input_.setText(value_)
+        self.widget.foreground.teal.color_steps.input_.setText(value_)
+        self.widget.foreground.blue.color_steps.input_.setText(value_)
+        self.widget.foreground.purple.color_steps.input_.setText(value_)
         return

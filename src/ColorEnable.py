@@ -1,11 +1,19 @@
 from PyQt6.QtWidgets import QCheckBox
-
+from PasteToMenu import PasteToMenu
 
 class ColorEnable(QCheckBox):
     
+    context_menu: PasteToMenu
+    
     def __init__(self):
         super().__init__("on")
+        t: QCheckBox
+        self.context_menu = PasteToMenu()
         self.__set_appearance()
+        return
+    
+    def contextMenuEvent(self, event):
+        self.context_menu.exec(event.globalPos())
         return
         
     def __set_appearance(self)-> None:
