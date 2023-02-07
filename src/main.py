@@ -20,11 +20,11 @@
 
 
 from PyQt6.QtWidgets import QApplication
-from MainWindow import MainWidow
+from MainWindow import MainWindow
 import sys
 
 
 app = QApplication(sys.argv)
-window = MainWidow()
+window = MainWindow()
 window.show()
 app.exec()    
