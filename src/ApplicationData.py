@@ -8,15 +8,10 @@ class ApplicationData:
     foreground: AreaData
     path: PathData
     
-    def __init__(
-        self,
-        background:AreaData=AreaData(),
-        foreground:AreaData=AreaData(),
-        path:PathData=PathData()
-    ):
-        self.background = background
-        self.foreground = foreground
-        self.path = path
+    def __init__(self):
+        self.background = AreaData()
+        self.foreground = AreaData()
+        self.path = PathData()
         return
     
     def set_property(self, key, value)-> None:

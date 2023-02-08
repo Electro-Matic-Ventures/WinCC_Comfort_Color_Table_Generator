@@ -12,25 +12,15 @@ class AreaData:
     blue: ColorData
     purple: ColorData
     
-    def __init__(
-        self,
-        white:ColorData=ColorData(),
-        black:ColorData=ColorData(),
-        red:ColorData=ColorData(),
-        yellow:ColorData=ColorData(),
-        green:ColorData=ColorData(),
-        teal:ColorData=ColorData(),
-        blue:ColorData=ColorData(),
-        purple:ColorData=ColorData(),
-    ):
-        self.white = white
-        self.black = black
-        self.red = red
-        self.yellow = yellow
-        self.green = green
-        self.teal = teal
-        self.blue = blue
-        self.purple = purple
+    def __init__(self):
+        self.white = ColorData()
+        self.black = ColorData()
+        self.red = ColorData()
+        self.yellow = ColorData()
+        self.green = ColorData()
+        self.teal = ColorData()
+        self.blue = ColorData()
+        self.purple = ColorData()
         return
     
     def set_property(self, key:str, value:ColorData)-> None:
