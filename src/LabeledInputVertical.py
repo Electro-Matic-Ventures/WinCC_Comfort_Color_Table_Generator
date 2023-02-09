@@ -9,17 +9,17 @@ class LabeledInputVertical(QWidget):
     label: LabeledInputLabel
     input_: LabeledInputInput 
     
-    def __init__(self, title:str):
+    def __init__(self, title:str, style_sheet:str):
         super().__init__()
-        self.__instantiations(title)
+        self.instantiations(title=title, style_sheet=style_sheet)
         self.__layout = QVBoxLayout(self)
         self.__set_appearance()
         self.__add_widgets()
         return
     
-    def __instantiations(self, title:str)-> None:
-        self.label = LabeledInputLabel(title)
-        self.input_ = LabeledInputInput() 
+    def instantiations(self, title:str, style_sheet:str)-> None:
+        self.label = LabeledInputLabel(title, style_sheet=style_sheet)
+        self.input_ = LabeledInputInput(style_sheet=style_sheet) 
         return
     
     def __set_appearance(self):

@@ -14,23 +14,23 @@ class AreaPanel(QGroupBox):
     blue: ColorPanel
     purple: ColorPanel
     
-    def __init__(self, title:str):
+    def __init__(self, title:str, style_sheet:str):
         super().__init__(title)
-        self.__instantiations()
+        self.__instantiations(style_sheet)
         self.__layout = QVBoxLayout(self)
         self.__add_widgets()
-        self.__set_appearance()
+        self.__set_appearance(style_sheet=style_sheet)
         return
     
-    def __instantiations(self)-> None:
-        self.white = ColorPanel("White")
-        self.black = ColorPanel("Black")
-        self.red = ColorPanel("Red")
-        self.yellow = ColorPanel("Yellow")
-        self.green = ColorPanel("Green")
-        self.teal = ColorPanel("Teal")
-        self.blue = ColorPanel("Blue")
-        self.purple = ColorPanel("Purple") 
+    def __instantiations(self, style_sheet:str)-> None:
+        self.white = ColorPanel(title="White", style_sheet=style_sheet)
+        self.black = ColorPanel("Black", style_sheet=style_sheet)
+        self.red = ColorPanel("Red", style_sheet=style_sheet)
+        self.yellow = ColorPanel("Yellow", style_sheet=style_sheet)
+        self.green = ColorPanel("Green", style_sheet=style_sheet)
+        self.teal = ColorPanel("Teal", style_sheet=style_sheet)
+        self.blue = ColorPanel("Blue", style_sheet=style_sheet)
+        self.purple = ColorPanel("Purple", style_sheet=style_sheet) 
         return
     
     def __add_widgets(self)-> None:
@@ -44,23 +44,8 @@ class AreaPanel(QGroupBox):
         self.__layout.addWidget(self.purple)
         return
     
-    def __set_appearance(self)-> None:
+    def __set_appearance(self, style_sheet:str)-> None:
         self.__layout.setContentsMargins(10, 15, 10, 10)
         self.setFixedSize(275, 750)
-        self.setStyleSheet(self.__generate_style_sheet())
+        self.setStyleSheet(style_sheet)
         return
-    
-    def __generate_style_sheet(self)-> str:
-        return '''
-            AreaPanel {
-                background-color: #222831;
-                color: #EEEEEE;
-                font-size: 20pt;
-                border: 2px solid #FFD369;
-                margin-top: 10px;
-            }
-            AreaPanel::title {
-                left: 10px;
-                bottom: 20px;
-            }
-        '''

@@ -13,19 +13,19 @@ class CentralWidget(QWidget):
     generate_button: GenerateButton
     __spacer: QWidget
     
-    def __init__(self):
+    def __init__(self, style_sheet:str):
         super().__init__()
-        self.__instantiations()
+        self.__instantiations(style_sheet=style_sheet)
         self.__add_widgets()
-        self.__set_appearance()
+        self.__set_appearance(style_sheet=style_sheet)
         return
     
-    def __instantiations(self)-> None:
+    def __instantiations(self, style_sheet:str)-> None:
         self.__layout = QGridLayout(self)
-        self.background = AreaPanel("Background")
-        self.foreground = AreaPanel("Foreground")
-        self.output_path = OutputPath()
-        self.generate_button = GenerateButton()
+        self.background = AreaPanel(title="Background", style_sheet=style_sheet)
+        self.foreground = AreaPanel("Foreground", style_sheet=style_sheet)
+        self.output_path = OutputPath(style_sheet=style_sheet)
+        self.generate_button = GenerateButton(style_sheet=style_sheet)
         self.spacer = QWidget()
         return
     
@@ -37,15 +37,8 @@ class CentralWidget(QWidget):
         self.__layout.addWidget(self.generate_button, 3, 1, 1, 3)
         return
     
-    def __set_appearance(self)-> None:
+    def __set_appearance(self, style_sheet:str)-> None:
         #self.setFixedSize(w, h)
-        self.setStyleSheet(self.__generate_style_sheet())
+        self.setStyleSheet(style_sheet)
         self.__layout.setSpacing(10)
         return
-    
-    def __generate_style_sheet(self)-> str:
-        return '''
-            CentralWidget {
-                background-color: #222831;
-            }
-        '''

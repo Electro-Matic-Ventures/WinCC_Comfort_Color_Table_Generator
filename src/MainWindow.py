@@ -1,21 +1,24 @@
 from PyQt6.QtWidgets import QMainWindow, QFileDialog
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QValidator
 from CentralWidget import CentralWidget
 from ApplicationData import ApplicationData
 from Generate import Generate
 from Writer import Writer
-
+from InvalidInputAnimation import InvalidInputAnimation
+from IntValidationResult import IntValidationResult
+from ValidateInt import ValidateInt
 
 class MainWindow(QMainWindow):
     
     widget: CentralWidget
     data: ApplicationData
+    style_sheet: str
     
     def __init__(self):
         super().__init__()
-        self.widget = CentralWidget()
         self.data = ApplicationData()
         self.__set_appearance()
+        self.widget = CentralWidget(style_sheet=self.style_sheet)
         self.setCentralWidget(self.widget)
         self.__connect_actions()
         return
@@ -24,15 +27,14 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("WinCC Comofort Color Table Generator")
         self.setWindowIcon(QIcon('icon.png'))
         self.setContentsMargins(10,10,10,10)
-        self.setStyleSheet(self.__generate_style_sheet())        
+        self.__load_style_sheet() 
+        self.setStyleSheet(self.style_sheet)     
         return
-        
-    def __generate_style_sheet(self)-> str:
-        return '''
-            MainWindow {
-                background-color: #222831;
-            }
-        '''
+    
+    def __load_style_sheet(self)-> None:
+        with open("style.css", "r") as file_:
+            self.style_sheet = file_.read()
+        return
         
     def __connect_actions(self)-> None:
         self.__connect_background_actions()
@@ -77,15 +79,15 @@ class MainWindow(QMainWindow):
         self.widget.background.white.color_enable.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_enable_to_all)
         self.widget.background.white.color_enable.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_enable_to_area)
         # MIN
-        self.widget.background.white.color_min.input_.textChanged.connect(self.__background_white_min_action)
+        self.widget.background.white.color_min.input_.editingFinished.connect(self.__background_white_min_action)
         self.widget.background.white.color_min.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_min_to_all)
         self.widget.background.white.color_min.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_min_to_area)
         # MAX
-        self.widget.background.white.color_max.input_.textChanged.connect(self.__background_white_max_action)
+        self.widget.background.white.color_max.input_.editingFinished.connect(self.__background_white_max_action)
         self.widget.background.white.color_max.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_max_to_all)
         self.widget.background.white.color_max.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_max_to_area)
         # STEPS
-        self.widget.background.white.color_steps.input_.textChanged.connect(self.__background_white_steps_action)
+        self.widget.background.white.color_steps.input_.editingFinished.connect(self.__background_white_steps_action)
         self.widget.background.white.color_steps.input_.context_menu.paste_to_all.triggered.connect(self.__paste_background_white_steps_to_all)
         self.widget.background.white.color_steps.input_.context_menu.paste_to_area.triggered.connect(self.__paste_background_white_steps_to_area)
         return
@@ -406,7 +408,7 @@ class MainWindow(QMainWindow):
         return
   
     def __background_white_steps_action(self)-> None:
-        self.data.background.white.steps = self.widget.background.white.steps_value()
+        self.data.background.white.steps = int(self.widget.background.white.steps_value())
         return
   
     def __background_black_enabled_action(self)-> None:
