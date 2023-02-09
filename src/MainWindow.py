@@ -7,6 +7,8 @@ from Writer import Writer
 from InvalidInputAnimation import InvalidInputAnimation
 from IntValidationResult import IntValidationResult
 from ValidateInt import ValidateInt
+from StyleSheet import StyleSheet
+
 
 class MainWindow(QMainWindow):
     
@@ -32,8 +34,10 @@ class MainWindow(QMainWindow):
         return
     
     def __load_style_sheet(self)-> None:
-        with open("style.css", "r") as file_:
-            self.style_sheet = file_.read()
+        # commented out for pyinstaller
+        # with open("style.css", "r") as file_:
+        #     self.style_sheet = file_.read()
+        self.style_sheet = StyleSheet.as_string
         return
         
     def __connect_actions(self)-> None:
